@@ -126,3 +126,6 @@ dmypy.json
 
 # vscode config settings
 .vscode/
+
+# API key file
+config.py
