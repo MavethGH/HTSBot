@@ -39,7 +39,7 @@ class ReactionRoles(commands.Cog):
         self.rrmappings[msg_id][hash(emoji)] = role
 
     @commands.Cog.listener('on_raw_reaction_add')
-    async def handle_reaction(payload):
+    async def handle_reaction(self, payload):
         if self.rrmappings[payload.message_id]:
             role = self.rrmappings[payload.message_id][hash(payload.emoji)]
             await payload.member.add_roles(role)
