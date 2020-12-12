@@ -1,5 +1,4 @@
 import discord.ext.commands as commands
-import config
 import os
 
 class ReactionRoles(commands.Cog):

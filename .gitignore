@@ -128,4 +128,4 @@ dmypy.json
 .vscode/
 
 # API key file
-config.py
+config.json

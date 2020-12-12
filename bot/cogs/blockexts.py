@@ -1,5 +1,4 @@
 from discord.ext import commands
-import config
 import os.path
 
 class BlockExts(commands.Cog):
@@ -15,7 +14,7 @@ class BlockExts(commands.Cog):
 
         for att in message.attachments:
             fext = os.path.splitext(att.name)[1] # [0] is the filename
-            if fext not in config.GOOD_FILE_TYPES:
+            if fext not in self.bot.config["GOOD_FILE_TYPES"]:
                 if message.channel.permissions_for(message.author).manage_messages:
                     await message.delete()
                     
