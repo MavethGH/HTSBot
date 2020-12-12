@@ -1,6 +1,6 @@
 from discord import commands
 import config
-import os
+import os.path
 
 class BlockExts(commands.Cog):
 
@@ -9,12 +9,12 @@ class BlockExts(commands.Cog):
 
     # Block bad file extensions, such as .exe
     @commands.Cog.listener()
-    async def on_message(message):
+    async def on_message(self, message):
         if not message.attachments:
             pass
 
         for att in message.attachments:
-            fname, fext = os.splitext(att.name)
+            fext = os.path.splitext(att.name)[1]
             if fext not in config.GOOD_FILE_TYPES:
                 if message.channel.permissions_for(message.author).manage_messages:
                     await message.delete()

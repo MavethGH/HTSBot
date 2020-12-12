@@ -1,7 +1,7 @@
 from discord.ext import commands
 
-from reactionroles import ReactionRoles
-from blockexts import BlockExts
+from cogs.reactionroles import ReactionRoles
+from cogs.blockexts import BlockExts
 
 bot = commands.Bot(command_prefix='~')
 
