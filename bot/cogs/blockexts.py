@@ -1,10 +1,10 @@
-from discord import commands
+import discord.ext.commands as commands
 import config
 import os
 
 class BlockExts(commands.Cog):
 
-    async def __init__(self, bot):
+    def __init__(self, bot):
         self.bot = bot
 
     # Block bad file extensions, such as .exe
