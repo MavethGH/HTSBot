@@ -9,7 +9,7 @@ class BlockExts(commands.Cog):
 
     # Block bad file extensions, such as .exe
     @commands.Cog.listener()
-    async def on_message(message):
+    async def on_message(self, message):
         if not message.attachments:
             pass
 
