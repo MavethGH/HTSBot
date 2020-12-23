@@ -1,7 +1,7 @@
 from discord.ext import commands
 from discord import Intents
 
-from config import PREFIX, TOKEN
+from bot.bot import HTSBot
 from bot.cogs.reactionroles import ReactionRoles
 from bot.cogs.blockexts import BlockExts
 
@@ -10,9 +10,9 @@ intents.typing = False
 intents.presences = False
 intents.messages = True
 
-bot = commands.Bot(command_prefix=PREFIX, intents=intents)
+bot = HTSBot(intents=intents)
 
 bot.add_cog(BlockExts(bot))
 bot.add_cog(ReactionRoles(bot))
 
-bot.run(TOKEN)
+bot.run(bot.config["TOKEN"])
