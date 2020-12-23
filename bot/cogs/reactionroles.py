@@ -1,6 +1,4 @@
 import discord.ext.commands as commands
-import config
-import os
 
 class ReactionRoles(commands.Cog):
 
@@ -57,6 +55,7 @@ class ReactionRoles(commands.Cog):
     async def handle_reaction(self, payload):
         """ For each reaction, check if a new role needs to be assigned"""
 
+        # Ignore bot users
         if payload.member.bot:
             return
 
