@@ -28,7 +28,7 @@ class ReactionRoles(commands.Cog):
 
     @reactionroles.command()
     @commands.guild_only()
-    async def add(self, ctx, emoji: commands.EmojiConverter, role: commands.RoleConverter):
+    async def add(self, ctx, emoji: commands.PartialEmojiConverter, role: commands.RoleConverter):
         """Adds a mapping of emoji to role. The bot will listen for users reacting
            with that emoji and give them the corresponding role"""
 
