@@ -10,7 +10,7 @@ intents.typing = False
 intents.presences = False
 intents.messages = True
 
-bot = HTSBot(intents=intents)
+bot = HTSBot(command_prefix="~", intents=intents)
 
 bot.add_cog(BlockExts(bot))
 bot.add_cog(ReactionRoles(bot))
