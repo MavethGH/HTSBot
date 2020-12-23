@@ -35,6 +35,7 @@ class ReactionRoles(commands.Cog):
         # message command must be used first
         if ctx.guild in self.active_messages:
             msg_id = self.active_messages[ctx.guild].id
+            channel = self.active_messages[ctx.guild].channel
         else:
             await ctx.send("Please select a message first, using `rr message <message_id>`.")
             return
@@ -46,12 +47,18 @@ class ReactionRoles(commands.Cog):
         # Storing emoji by hash so that custom and unicode emojis behave the same
         self.rrmappings[msg_id][hash(emoji)] = role
 
+        # Add the initial reaction for users to click on
+        await channel.fetch_message(msg_id).add_reaction(emoji)
+        #Success!
         await ctx.send("Listener successfully added!")
 
 
     @commands.Cog.listener('on_raw_reaction_add')
     async def handle_reaction(self, payload):
         """ For each reaction, check if a new role needs to be assigned"""
+
+        if payload.member.bot:
+            return
 
         if payload.message_id in self.rrmappings:
             role = self.rrmappings[payload.message_id][hash(payload.emoji)]
