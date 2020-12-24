@@ -1,4 +1,15 @@
 import discord.ext.commands as commands
+import emoji
+
+class UnicodeEmojiConverter(commands.EmojiConverter):
+    """For some reason, normal EmojiConverter does not work with Unicode
+       emojis. This should prevent it from raising an error every time."""
+    async def convert(self, ctx, argument):
+        if emoji.emoji_count(argument):
+            return argument
+        else:
+            custom_emoji = await super().convert(ctx, argument)
+            return custom_emoji
 
 class ReactionRoles(commands.Cog):
 
