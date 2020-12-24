@@ -37,7 +37,7 @@ class ReactionRoles(commands.Cog):
 
     @reactionroles.command()
     @commands.guild_only()
-    async def add(self, ctx, emoji: commands.PartialEmojiConverter, role: commands.RoleConverter):
+    async def add(self, ctx, emoji: UnicodeEmojiConverter, role: commands.RoleConverter):
         """Adds a mapping of emoji to role. The bot will listen for users reacting
            with that emoji and give them the corresponding role"""
 
@@ -53,11 +53,12 @@ class ReactionRoles(commands.Cog):
         if msg_id not in self.rrmappings:
             self.rrmappings[msg_id] = dict()
 
-        # Storing emoji by hash so that custom and unicode emojis behave the same
+        # Storing emoji by hash for efficiency
         self.rrmappings[msg_id][hash(emoji)] = role
 
         # Add the initial reaction for users to click on
-        await channel.fetch_message(msg_id).add_reaction(emoji)
+        message = await channel.fetch_message(msg_id)
+        await message.add_reaction(emoji)
         #Success!
         await ctx.send("Listener successfully added!")
 
@@ -71,5 +72,13 @@ class ReactionRoles(commands.Cog):
             return
 
         if payload.message_id in self.rrmappings:
-            role = self.rrmappings[payload.message_id][hash(payload.emoji)]
+
+            if payload.emoji.is_custom_emoji():
+                # emoji object will be what got stored earlier
+                emoji_hash = hash(payload.emoji)
+            else:
+                # emoji.name will be the actual unicode emoji that got stored earlier
+                emoji_hash = hash(payload.emoji.name)
+
+            role = self.rrmappings[payload.message_id][emoji_hash]
             await payload.member.add_roles(role)
