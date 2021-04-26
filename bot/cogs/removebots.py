@@ -14,10 +14,10 @@ class RemoveBots(commands.Cog):
     @commands.group()
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
-    async def botremoval(self, ctx):
+    async def removebots(self, ctx):
         """Command group relating to mass banning spam/scam bots"""
 
-    @botremoval.command()
+    @removebots.command("recent")
     async def remove_recent(self, ctx, seconds: TimedeltaConverter):
         """Remove all potential bots that joined recently"""
 
