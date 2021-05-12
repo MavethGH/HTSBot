@@ -24,7 +24,7 @@ class RemoveBots(commands.Cog):
         time = datetime.utcnow() - seconds
 
         # I'm like 70% sure this gets members who joined later than after
-        recent_members = await guild.fetch_members(after=time)
+        recent_members = await ctx.guild.fetch_members(after=time)
         
         # Eventually this function will be able to filter out legit users
         for member in recent_members:
