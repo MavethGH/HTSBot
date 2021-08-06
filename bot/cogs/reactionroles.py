@@ -1,6 +1,7 @@
 import discord.ext.commands as commands
 import emoji
 
+
 class UnicodeEmojiConverter(commands.EmojiConverter):
     """For some reason, normal EmojiConverter does not work with Unicode
        emojis. This should prevent it from raising an error every time."""
@@ -11,6 +12,7 @@ class UnicodeEmojiConverter(commands.EmojiConverter):
             custom_emoji = await super().convert(ctx, argument)
             return custom_emoji
 
+
 class ReactionRoles(commands.Cog):
 
     def __init__(self, bot):
@@ -20,12 +22,10 @@ class ReactionRoles(commands.Cog):
         # Store emoji-role pairs by message
         self.rrmappings = dict()
 
-
     @commands.group(aliases=["rr"])
     @commands.has_permissions(manage_messages=True)
     async def reactionroles(self, ctx):
         """The group for reaction role commands"""
-
 
     @reactionroles.command()
     @commands.guild_only()
@@ -33,7 +33,6 @@ class ReactionRoles(commands.Cog):
         """Sets the active message for the caller's guild
            Requires a message ID obtained by shift-clicking Copy ID"""
         self.active_messages[ctx.guild] = message
-
 
     @reactionroles.command()
     @commands.guild_only()
@@ -59,9 +58,8 @@ class ReactionRoles(commands.Cog):
         # Add the initial reaction for users to click on
         message = await channel.fetch_message(msg_id)
         await message.add_reaction(emoji)
-        #Success!
+        # Success!
         await ctx.send("Listener successfully added!")
-
 
     @commands.Cog.listener('on_raw_reaction_add')
     async def handle_reaction(self, payload):

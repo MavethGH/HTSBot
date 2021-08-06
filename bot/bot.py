@@ -7,6 +7,6 @@ class HTSBot(commands.Bot):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         with open('bot/config.json', 'r') as config:
             self.config = json.load(config)
